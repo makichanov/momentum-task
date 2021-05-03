@@ -44,7 +44,7 @@ function addZero(n) {
     return (parseInt(n, 10) < 10 ? '0' : '') + n;
 }
 
-// Set Background and Greeting
+//Backgrounds
 function setBgGreet() {
     let today = new Date(),
         hour = today.getHours();
@@ -74,76 +74,6 @@ function setBgGreet() {
         document.body.style.color = 'white';
     }
     setTimeout(setBgGreet, ((59 - today.getMinutes()) * 60 + (59 - today.getSeconds())) * 1000 + (1000 - today.getMilliseconds()));
-}
-
-// Get Name
-function getName() {
-    if (localStorage.getItem('name') === null) {
-        name.textContent = '[Enter Name]';
-    } else {
-        name.textContent = localStorage.getItem('name');
-    }
-}
-
-// Set Name
-function setName(e) {
-    let oldValue = localStorage.getItem('name');
-    if (e.type === 'keypress') {
-        // Make sure enter is pressed
-        if (e.which == 13 || e.keyCode == 13) {
-            if (e.target.innerText === '') {
-                name.textContent = oldValue;
-            } else {
-                localStorage.setItem('name', e.target.innerText);
-            }
-            name.blur();
-        }
-    } else {
-        if (e.target.innerText === '') {
-            name.textContent = oldValue;
-        } else {
-            localStorage.setItem('name', e.target.innerText);
-        }
-    }
-}
-
-function clearName(e) {
-    name.textContent = '';
-}
-
-// Get Focus
-function getFocus() {
-    if (localStorage.getItem('focus') === null) {
-        focus.textContent = '[Enter Focus]';
-    } else {
-        focus.textContent = localStorage.getItem('focus');
-    }
-}
-
-// Set Focus
-function setFocus(e) {
-    let oldValue = localStorage.getItem('focus');
-    if (e.type === 'keypress') {
-        // Make sure enter is pressed
-        if (e.which == 13 || e.keyCode == 13) {
-            if (e.target.innerText === '') {
-                focus.textContent = oldValue;
-            } else {
-                localStorage.setItem('focus', e.target.innerText);
-            }
-            focus.blur();
-        }
-    } else {
-        if (e.target.innerText === '') {
-            focus.textContent = oldValue;
-        } else {
-            localStorage.setItem('focus', e.target.innerText);
-        }
-    }
-}
-
-function clearFocus(e) {
-    focus.textContent = '';
 }
 
 const morningBgs = [];
@@ -231,6 +161,77 @@ function nextBg() {
     }
 }
 
+// Get Name
+function getName() {
+    if (localStorage.getItem('name') === null) {
+        name.textContent = '[Enter Name]';
+    } else {
+        name.textContent = localStorage.getItem('name');
+    }
+}
+
+// Set Name
+function setName(e) {
+    let oldValue = localStorage.getItem('name');
+    if (e.type === 'keypress') {
+        // Make sure enter is pressed
+        if (e.which == 13 || e.keyCode == 13) {
+            if (e.target.innerText === '') {
+                name.textContent = oldValue;
+            } else {
+                localStorage.setItem('name', e.target.innerText);
+            }
+            name.blur();
+        }
+    } else {
+        if (e.target.innerText === '') {
+            name.textContent = oldValue;
+        } else {
+            localStorage.setItem('name', e.target.innerText);
+        }
+    }
+}
+
+function clearName(e) {
+    name.textContent = '';
+}
+
+// Get Focus
+function getFocus() {
+    if (localStorage.getItem('focus') === null) {
+        focus.textContent = '[Enter Focus]';
+    } else {
+        focus.textContent = localStorage.getItem('focus');
+    }
+}
+
+// Set Focus
+function setFocus(e) {
+    let oldValue = localStorage.getItem('focus');
+    if (e.type === 'keypress') {
+        // Make sure enter is pressed
+        if (e.which == 13 || e.keyCode == 13) {
+            if (e.target.innerText === '') {
+                focus.textContent = oldValue;
+            } else {
+                localStorage.setItem('focus', e.target.innerText);
+            }
+            focus.blur();
+        }
+    } else {
+        if (e.target.innerText === '') {
+            focus.textContent = oldValue;
+        } else {
+            localStorage.setItem('focus', e.target.innerText);
+        }
+    }
+}
+
+function clearFocus(e) {
+    focus.textContent = '';
+}
+
+//Quotes
 async function getQuote() {
     const url = `https://favqs.com/api/qotd`;
     const res = await fetch(url);
@@ -239,6 +240,8 @@ async function getQuote() {
     quoteAuthor.textContent = data.quote.author;
 }
 
+
+//Weather
 async function getWeather() {
     const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=ru&appid=25a8adffc39ba101ae15bfb1a76915cc&units=metric`);
     const data = await res.json();
@@ -267,14 +270,14 @@ function getCity() {
 }
 
 async function setCity(e) {
-    if(e.type === 'keypress') {
+    if (e.type === 'keypress') {
         if (e.which == 13 || e.keyCode == 13) {
             city.blur();
         }
-    } else if (e.type ==='focus') {
+    } else if (e.type === 'focus') {
         city.textContent = '';
     } else {
-        if(e.target.innerText === '') {
+        if (e.target.innerText === '') {
             getCity();
             await getWeather();
         } else {
@@ -285,6 +288,7 @@ async function setCity(e) {
     }
 }
 
+// EventListeners
 name.addEventListener('keypress', setName);
 name.addEventListener('blur', setName);
 name.addEventListener('click', clearName);

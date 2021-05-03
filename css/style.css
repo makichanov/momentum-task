@@ -81,6 +81,7 @@ button:active {
     border-radius: 1em;
     opacity: 0.7;
 }
+
 .quote figcaption,
 .quote blockquote {
     margin: 1em;
@@ -119,7 +120,7 @@ button:active {
     color: black;
 }
 
-@media(max-width: 1280px) {
+@media (max-width: 1280px) {
     figure {
         height: 25vh;
         width: 60vw;
