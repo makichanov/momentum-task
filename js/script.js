@@ -270,12 +270,16 @@ function getCity() {
 }
 
 async function setCity(e) {
+    let oldValue = localStorage.getItem('city');
     if (e.type === 'keypress') {
         if (e.which == 13 || e.keyCode == 13) {
+            if (e.target.innerText === '') {
+                city.textContent = oldValue;
+            } else {
+                localStorage.setItem('city', e.target.innerText);
+            }
             city.blur();
         }
-    } else if (e.type === 'focus') {
-        city.textContent = '';
     } else {
         if (e.target.innerText === '') {
             getCity();
@@ -286,6 +290,10 @@ async function setCity(e) {
             }
         }
     }
+}
+
+function clearCity() {
+    city.textContent = '';
 }
 
 // EventListeners
@@ -301,7 +309,7 @@ nextQuote.addEventListener('click', getQuote);
 document.addEventListener('DOMContentLoaded', getWeather);
 city.addEventListener('keypress', setCity);
 city.addEventListener('blur', setCity);
-city.addEventListener('focus', setCity);
+city.addEventListener('click', clearCity);
 
 // Run
 showTime();
